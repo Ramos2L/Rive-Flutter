@@ -77,7 +77,7 @@ class _RivePageState extends State<RivePage> {
           children: [
             SizedBox( 
               width: MediaQuery.of(context).size.width,
-              height: 400, 
+              height: 450, 
               child: _artboard != null 
               ? Rive(artboard: _artboard) 
               : Container(color: Colors.red,),
