@@ -13,49 +13,41 @@ class RivePage extends StatefulWidget {
 }
 
 class _RivePageState extends State<RivePage> {
-  late Artboard _artboard;
+  Artboard? _artboard;
   late RiveAnimationController _riveAnimationController;
 
   @override
   void initState() {
-    _loadRiveFile();
     super.initState();
+    _loadRiveFile();
   }
 
   _loadRiveFile() async {
     final byte = await rootBundle.load('assets/flutter-puzzle.riv');
     final file = RiveFile.import(byte);
 
-    setState(() {
-      _artboard = file.mainArtboard;
-    });
+    setState(() => _artboard = file.mainArtboard,);
   }
 
   void _look(){
-    _artboard.addController(
+    _artboard?.addController(
       _riveAnimationController = SimpleAnimation('lookUp')
     );
-    setState(() {
-      _riveAnimationController.isActive = true;
-    });
+    setState(() => _riveAnimationController.isActive = true,);
   }
 
   void _dance(){
-    _artboard.addController(
+    _artboard?.addController(
       _riveAnimationController = SimpleAnimation('slowDance')
     );
-    setState(() {
-      _riveAnimationController.isActive = true;
-    });
+    setState(() =>_riveAnimationController.isActive = true,);
   }
 
   void _idle(){
-    _artboard.addController(
+    _artboard?.addController(
       _riveAnimationController = SimpleAnimation('idle')
     );
-    setState(() {
-      _riveAnimationController.isActive = true;
-    });
+    setState(() => _riveAnimationController.isActive = true,);
   }
 
   @override
@@ -66,7 +58,12 @@ class _RivePageState extends State<RivePage> {
         actions: [
           IconButton(
             onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const Information()));
+              Navigator.push(
+                context, 
+                MaterialPageRoute(
+                  builder: (context) => const Information()
+                ),
+              );
             }, 
             icon: const Icon(Icons.info) 
           ),
@@ -76,28 +73,21 @@ class _RivePageState extends State<RivePage> {
         child: Column(
           children: [
             SizedBox( 
-              width: MediaQuery.of(context).size.width,
-              height: 450, 
+              width: 450, height: 450, 
               child: _artboard != null 
-              ? Rive(artboard: _artboard) 
+              ? Rive(artboard: _artboard!) 
               : Container(color: Colors.red,),
             ),
             TextButton(
-              onPressed: (){
-                _dance();
-              }, 
+              onPressed: () => _dance(),
               child: const Text('Dance'),
             ),
             TextButton(
-              onPressed: (){
-                _look();
-              }, 
+              onPressed: () => _look(), 
               child: const Text('Look'),
             ),
             TextButton(
-              onPressed: (){
-                _idle();
-              }, 
+              onPressed: () => _idle(), 
               child: const Text('Idle'),
             ),
           ],
