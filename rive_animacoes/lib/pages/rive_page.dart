@@ -76,7 +76,7 @@ class _RivePageState extends State<RivePage> {
               width: 450, height: 450, 
               child: _artboard != null 
               ? Rive(artboard: _artboard!) 
-              : Container(color: Colors.red,),
+              : const CircularProgressIndicator.adaptive(),
             ),
             TextButton(
               onPressed: () => _dance(),
